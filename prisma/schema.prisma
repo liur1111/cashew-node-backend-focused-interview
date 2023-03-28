@@ -13,9 +13,10 @@ datasource db {
 model Address {
   id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now()) @map("created_at")
+  name      String
   line1     String
   city      String
-  Package   Package[]
+  packages   Package[]
 
   @@map("address")
 }
@@ -24,7 +25,7 @@ model Driver {
   id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now()) @map("created_at")
   name      String
-  Package   Package[]
+  packages   Package[]
 
   @@map("driver")
 }
