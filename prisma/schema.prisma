@@ -14,9 +14,9 @@ model Address {
   id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now()) @map("created_at")
   name      String
-  line1     String
+  street    String
   city      String
-  packages   Package[]
+  packages  Package[]
 
   @@map("address")
 }
@@ -25,7 +25,7 @@ model Driver {
   id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now()) @map("created_at")
   name      String
-  packages   Package[]
+  packages  Package[]
 
   @@map("driver")
 }
@@ -34,15 +34,12 @@ model Package {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("created_at")
   name      String   @unique
-  length    Float
-  width     Float
-  height    Float
   weight    Float
 
-  address   Address? @relation(fields: [addressId], references: [id])
-  addressId Int?     @map("address_id")
-  driver    Driver?  @relation(fields: [driverId], references: [id])
-  driverId  Int?     @map("driver_id")
+  address   Address @relation(fields: [addressId], references: [id])
+  addressId Int     @map("address_id")
+  driver    Driver? @relation(fields: [driverId], references: [id])
+  driverId  Int?    @map("driver_id")
 
   @@map("package")
 }
