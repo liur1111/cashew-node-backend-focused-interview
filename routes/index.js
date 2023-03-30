@@ -34,7 +34,7 @@ router.get('/addresses', async function (req, res) {
  */
 router.delete('/addresses/:id', async function (req, res) {
     const {id} = req.params;
-    const count = await prismaClient.$executeRawUnsafe('DELETE FROM address WHERE id = $1::int', id);
+    const count = await prismaClient.$executeRawUnsafe('DELETE FROM address WHERE id = $1::INT', id);
     res.send(JSON.stringify(count));
 });
 
@@ -63,7 +63,7 @@ router.get('/drivers', async function (req, res) {
  */
 router.delete('/drivers/:id', async function (req, res) {
     const {id} = req.params;
-    const count = await prismaClient.$executeRawUnsafe('DELETE FROM driver WHERE id = $1::int', id);
+    const count = await prismaClient.$executeRawUnsafe('DELETE FROM driver WHERE id = $1::INT', id);
     res.send(JSON.stringify(count));
 });
 
