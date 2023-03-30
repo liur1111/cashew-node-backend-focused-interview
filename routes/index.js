@@ -42,29 +42,21 @@ router.delete('/addresses/:id', async function (req, res) {
  * Create a driver
  */
 router.post('/drivers', async function (req, res) {
-    const {name} = req.body;
-    const count = await prismaClient.$executeRawUnsafe(
-        'INSERT INTO driver (name) VALUES ($1)',
-        name
-    );
-    res.send(JSON.stringify(count));
+    // TODO
 });
 
 /**
  * Get all drivers
  */
 router.get('/drivers', async function (req, res) {
-    const drivers = await prismaClient.$queryRawUnsafe('SELECT * FROM driver');
-    res.send(JSON.stringify(drivers));
+    // TODO
 });
 
 /**
  * Delete a driver
  */
 router.delete('/drivers/:id', async function (req, res) {
-    const {id} = req.params;
-    const count = await prismaClient.$executeRawUnsafe('DELETE FROM driver WHERE id = $1::INT', id);
-    res.send(JSON.stringify(count));
+    // TODO
 });
 
 /**
