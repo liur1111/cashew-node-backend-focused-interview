@@ -16,18 +16,11 @@ model Address {
   name      String
   street    String
   city      String
+
+  // Prisma relation declarations, feel free to ignore
   packages  Package[]
 
   @@map("address")
-}
-
-model Driver {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now()) @map("created_at")
-  name      String
-  packages  Package[]
-
-  @@map("driver")
 }
 
 model Package {
@@ -35,11 +28,10 @@ model Package {
   createdAt DateTime @default(now()) @map("created_at")
   name      String   @unique
   weight    Float
-
-  address   Address @relation(fields: [addressId], references: [id])
   addressId Int     @map("address_id")
-  driver    Driver? @relation(fields: [driverId], references: [id])
-  driverId  Int?    @map("driver_id")
+
+  // Prisma relation declaration, feel free to ignore
+  address   Address @relation(fields: [addressId], references: [id])
 
   @@map("package")
 }
