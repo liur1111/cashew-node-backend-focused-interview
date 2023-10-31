@@ -51,13 +51,26 @@ router.get('/packages', async function (req, res) {
  */
 router.post('/packages', async function (req, res) {
     const {name, weight, addressId} = req.body;
-    const count = await prismaClient.$executeRawUnsafe(
-        'INSERT INTO package (name, weight, address_id) VALUES ($1, $2, $3)',
-        name,
-        weight,
-        addressId,
-    );
-    res.send(JSON.stringify(count));
+    const address = await prismaClient.$queryRawUnsafe('SELECT * FROM address WHERE id = $1::INT', addressId);
+    const ADDR = address[0].name;
+    const num_packages = await prismaClient.$queryRawUnsafe('SELECT COUNT(*) FROM package WHERE address_id = $1::INT', addressId);
+    const PACKAGE_NUM = num_packages[0].count;
+    setTimeout(async function() {
+        const count = await prismaClient.$executeRawUnsafe(
+            'INSERT INTO package (name, weight, address_id) VALUES ($1, $2, $3)',
+            "PACK-" + ADDR + "-" + PACKAGE_NUM,
+            weight,
+            addressId,
+        );
+        res.send(JSON.stringify(count));
+    }, 5000);
+    // const count = await prismaClient.$executeRawUnsafe(
+    //     'INSERT INTO package (name, weight, address_id) VALUES ($1, $2, $3)',
+    //     "PACK-" + ADDR + "-" + PACKAGE_NUM,
+    //     weight,
+    //     addressId,
+    // );
+    // res.send(JSON.stringify(count));
 });
 
 /**
